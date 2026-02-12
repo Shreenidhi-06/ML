@@ -16,8 +16,8 @@ plt.figure(figsize=(10,15))
 colors=['r','g','b']
 for i,target in enumerate(np.unique(target)):
     plt.scatter(reduced_df[reduced_df['target']==target]['PC1'],reduced_df[reduced_df['target']==target]['PC2'],c=colors[i],label=label_names[i])
-    plt.xlabel('PC1')
-    plt.ylabel('PC2')
-    plt.title('PCA of Iris Dataset')
-    plt.legend()
-    plt.show()
+plt.xlabel('PC1')
+plt.ylabel('PC2')
+plt.title('PCA of Iris Dataset')
+plt.legend()
+plt.show()
