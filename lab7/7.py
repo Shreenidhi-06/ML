@@ -30,7 +30,7 @@ def polynomial_regression_auto_mpg():
  url = "https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data"
  column_names = ["mpg", "cylinders", "displacement", "horsepower", "weight",
  "acceleration", "model_year", "origin"]
- data = pd.read_csv(url, sep='\s+', names=column_names, na_values="?")
+ data = pd.read_csv(url, sep=r'\s+', names=column_names, na_values="?")
  data = data.dropna()
  X = data["displacement"].values.reshape(-1, 1)
  y = data["mpg"].values
