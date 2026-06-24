@@ -1,0 +1,26 @@
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.decomposition import PCA
+
+iris = load_iris()
+
+pca = PCA(n_components=2)
+data_reduced = pca.fit_transform(iris.data)
+
+
+colors = ["red", "green", "blue"]
+names = iris.target_names
+
+
+for i in range(3):
+    plt.figure(figsize=(5, 4))
+    x = data_reduced[iris.target == i, 0]
+    y = data_reduced[iris.target == i, 1]
+
+    plt.scatter(x, y, color=colors[i], label=names[i])
+
+    plt.xlabel("PC1")
+    plt.ylabel("PC2")
+    plt.title(f"PCA - {names[i].upper()}")
+    plt.legend()
+    plt.show()
