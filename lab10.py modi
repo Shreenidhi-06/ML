@@ -1,0 +1,23 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+from sklearn.cluster import KMeans
+from sklearn.datasets import load_breast_cancer
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+data = load_breast_cancer()
+X_scaled = StandardScaler().fit_transform(data.data)
+pca_data = PCA(2).fit_transform(X_scaled)
+labels = KMeans(2, random_state=42).fit_predict(X_scaled)
+sns.scatterplot(x=pca_data[:, 0], y=pca_data[:, 1], hue=labels, palette="Set1")
+plt.title("K-Means Clustering of Breast Cancer Dataset")
+plt.xlabel('Principal Component 1')
+plt.grid(True)
+plt.show()
+sns.scatterplot(x=pca_data[:, 0], y=pca_data[:, 1], hue=labels, palette="Set1")
+centers = PCA(2).fit(X_scaled).transform(KMeans(2, random_state=42).fit(X_scaled).cluster_centers_)
+plt.scatter(centers[:, 0], centers[:, 1], marker="X", s=200, color="red")
+plt.title("K-Means Clustering with Centroids")
+plt.xlabel('Principal Component 1')
+plt.grid(True)
+plt.show()
