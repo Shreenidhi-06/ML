@@ -1,0 +1,39 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.datasets import fetch_california_housing
+
+
+housing_df = fetch_california_housing(as_frame=True).frame
+
+
+plt.figure(figsize=(15, 10))
+for i, col in enumerate(housing_df.columns):
+    plt.subplot(3, 3, i + 1)
+    sns.histplot(housing_df[col], kde=True, bins=45, color="blue")
+    plt.title(f"Histogram of {col}")
+plt.tight_layout()
+plt.show()
+
+
+plt.figure(figsize=(15, 10))
+for i, col in enumerate(housing_df.columns):
+    plt.subplot(3, 3, i + 1)
+    sns.boxplot(y=housing_df[col], color="orange")
+    plt.title(f"Box Plot of {col}")
+plt.tight_layout()
+plt.show()
+
+
+outliers_summary = {}
+for col in housing_df.columns:
+    q1, q3 = housing_df[col].quantile([0.25, 0.75])
+    iqr = q3 - q1
+
+    outliers_count = (
+        (housing_df[col] < (q1 - 1.5 * iqr))
+        | (housing_df[col] > (q3 + 1.5 * iqr))
+    ).sum()
+    outliers_summary[col] = outliers_count
+
+print("Description of Outliers:", outliers_summary)
+print("\nDataset Summary Statistics:\n", housing_df.describe())
